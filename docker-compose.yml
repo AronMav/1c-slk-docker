@@ -14,7 +14,7 @@ services:
 
     volumes:
       # Конфигурация сервера (только чтение)
-      - ./docker/licenceserver.conf:/var/1C/licence/3.0/licenceserver.conf:ro
+      - ./docker/licenceserver.conf:/var/1C/licence/3.0/licenceserver.conf
       # Файл серий лицензий (только чтение)
       - ./licence.series:/var/1C/licence/3.0/licence.series:ro
       # Именованный том для файлов программных ключей (*.licence)
