@@ -1,0 +1,11 @@
+# Игнорировать всё по умолчанию
+*
+
+# --- Разрешить только созданные файлы конфигурации Docker ---
+!.gitignore
+!README.md
+!.dockerignore
+!Dockerfile
+!docker-compose.yml
+!docker/
+!docker/licenceserver.conf

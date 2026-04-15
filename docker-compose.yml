@@ -1,0 +1,32 @@
+services:
+  licenceserver:
+    build: .
+    container_name: slk-licenceserver
+    restart: unless-stopped
+
+    ports:
+      - "9099:9099"
+
+    # Фиксированный MAC-адрес — программный ключ привязывается к железу.
+    # Значение ниже — пример; замените на реальный MAC машины, где ключ был активирован,
+    # либо сгенерируйте новый и выполните повторную активацию через веб-консоль.
+    mac_address: "02:42:ac:11:00:02"
+
+    volumes:
+      # Конфигурация сервера (только чтение)
+      - ./docker/licenceserver.conf:/var/1C/licence/3.0/licenceserver.conf:ro
+      # Файл серий лицензий (только чтение)
+      - ./licence.series:/var/1C/licence/3.0/licence.series:ro
+      # Именованный том для файлов программных ключей (*.licence)
+      # Заполняется автоматически после активации через веб-консоль
+      - slk-keys:/var/1C/licence/data
+
+    # Логи: выводятся в stdout контейнера → docker logs slk-licenceserver
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  slk-keys:
